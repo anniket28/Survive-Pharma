@@ -1,0 +1,4 @@
+{
+    "host":"http://localhost:3000",
+    "Mongo_URI":"mongodb+srv://root:6f8b7fbea16c@cluster0.yl2wk.mongodb.net/survivepharma"
+}
