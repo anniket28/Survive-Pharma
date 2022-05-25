@@ -60,7 +60,7 @@ const Interested = (props) => {
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="relative w-full h-full p-4 max-w-7xl md:h-auto">
-            <div className="relative bg-white rounded-lg shadow border-t-[1px] dark:bg-gray-700">
+            <div className="relative bg-white rounded-lg shadow border-t-[1px]">
                 <div className="flex items-center justify-between p-2 xl:p-4 border-b rounded-t dark:border-gray-600">
                     <h3 className="text-lg lg:text-xl font-medium text-gray-900 dark:text-white flex items-center">
                       <BsCheckCircle /> <span className='ml-[2px]'>Yes,I am interested</span>
