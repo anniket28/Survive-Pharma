@@ -119,10 +119,49 @@ export default function Home() {
       </div>
 
       {/*  */}
-      <div className='my-10 px-10 sm:px-20 md:px-40 lg:px-12 xl:px-[123px]'>
-        <h2 className='text-xl sm:text-2xl font-semibold text-center lg:text-[27px] lg:my-3'>Testimonials</h2>
-        <h3 className='text-center text-2xl sm:text-[27px] lg:text-[35px] text-slate-500'>What People Say About Us ?</h3>
-      </div>
+      <section id="testimonials" className="my-16 px-5 lg:px-0">
+    <h2 className="text-xl md:text-[22px] lg:text-3xl text-center">Testimonials</h2>
+    <h2 className="text-xl md:text-[22px] lg:text-3xl text-center text-slate-500 pt-1">What People Say About Us ?</h2>
+    <div className="text-white body-font">
+        <div className="container px-5 py-8 mx-auto">
+          <div className="flex flex-wrap -m-4">
+            <div className="p-4 md:w-1/3 w-full">
+              <div className="h-full p-8 rounded text-[15px] md:text-base bg-sky-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="white" className="block w-5 h-5 text-slate-500 mb-4" viewBox="0 0 975.036 975.036">
+                  <path d="M925.036 57.197h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.399 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l36 76c11.6 24.399 40.3 35.1 65.1 24.399 66.2-28.6 122.101-64.8 167.7-108.8 55.601-53.7 93.7-114.3 114.3-181.9 20.601-67.6 30.9-159.8 30.9-276.8v-239c0-27.599-22.401-50-50-50zM106.036 913.497c65.4-28.5 121-64.699 166.9-108.6 56.1-53.7 94.4-114.1 115-181.2 20.6-67.1 30.899-159.6 30.899-277.5v-239c0-27.6-22.399-50-50-50h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.4 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l35.9 75.8c11.601 24.399 40.501 35.2 65.301 24.399z"></path>
+                </svg>
+                <p className="leading-relaxed mb-6">Aarya had a very enriching and fun loving experience, I would like to thank to all the teachers for the kindness and care in organising interesting activities, wish all the luck to pingpong.</p>
+                <span className="flex-grow flex flex-col">
+                  <span className="text-slate-100 title-font font-bold">Shivani Bhardwaj m/o Aarya</span>
+                </span>
+              </div>
+            </div>
+            <div className="p-4 md:w-1/3 w-full">
+              <div className="h-full p-8 rounded text-[15px] md:text-base bg-sky-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="white" className="block w-5 h-5 text-slate-500 mb-4" viewBox="0 0 975.036 975.036">
+                  <path d="M925.036 57.197h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.399 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l36 76c11.6 24.399 40.3 35.1 65.1 24.399 66.2-28.6 122.101-64.8 167.7-108.8 55.601-53.7 93.7-114.3 114.3-181.9 20.601-67.6 30.9-159.8 30.9-276.8v-239c0-27.599-22.401-50-50-50zM106.036 913.497c65.4-28.5 121-64.699 166.9-108.6 56.1-53.7 94.4-114.1 115-181.2 20.6-67.1 30.899-159.6 30.899-277.5v-239c0-27.6-22.399-50-50-50h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.4 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l35.9 75.8c11.601 24.399 40.501 35.2 65.301 24.399z"></path>
+                </svg>
+                <p className="leading-relaxed mb-6">Key to student’s success is a great school and key to a great school is a great director and principal. Thanks to the hardworking teachers, we really appreciate your dedication to our child.</p>
+                <span className="flex-grow flex flex-col">
+                  <span className="text-slate-100 title-font font-bold">Sakshi Khurana m/o Vivaan</span>
+                </span>
+              </div>
+            </div>
+            <div className="p-4 md:w-1/3 w-full">
+              <div className="h-full p-8 rounded text-[15px] md:text-base bg-sky-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="white" className="block w-5 h-5 text-slate-500 mb-4" viewBox="0 0 975.036 975.036">
+                  <path d="M925.036 57.197h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.399 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l36 76c11.6 24.399 40.3 35.1 65.1 24.399 66.2-28.6 122.101-64.8 167.7-108.8 55.601-53.7 93.7-114.3 114.3-181.9 20.601-67.6 30.9-159.8 30.9-276.8v-239c0-27.599-22.401-50-50-50zM106.036 913.497c65.4-28.5 121-64.699 166.9-108.6 56.1-53.7 94.4-114.1 115-181.2 20.6-67.1 30.899-159.6 30.899-277.5v-239c0-27.6-22.399-50-50-50h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.4 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l35.9 75.8c11.601 24.399 40.501 35.2 65.301 24.399z"></path>
+                </svg>
+                <p className="leading-relaxed mb-6">Play School is foundation of a child’s growth. It was a wonderful journey with pingpong. Really appreciate the patience and efforts by the staff.</p>
+                <span className="flex-grow flex flex-col">
+                  <span className="text-slate-100 title-font font-bold">Chadni Agarwal m/o Ayush</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </section>
       
     </div>
   )

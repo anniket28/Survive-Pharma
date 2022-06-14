@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import ProductRange from '../../components/ProductRange'
+import Spinner from '../../components/Spinner'
 import {MdOutlineDescription} from 'react-icons/md'
 import {BsCheckCircle} from 'react-icons/bs'
 import Sidebar from '../../components/Sidebar'
@@ -23,6 +24,8 @@ const Category = (props) => {
     const [modalProdName, setmodalProdName] = useState('')
     const [modalProdImage, setmodalProdImage] = useState('')
     const [modalProdDesc, setmodalProdDesc] = useState('')
+    const [showProducts, setshowProducts] = useState(true)
+    const [spinner, setspinner] = useState(false)
 
     let prodCategory=""
     const updateProductCategory=()=>{
@@ -35,11 +38,19 @@ const Category = (props) => {
     updateProductCategory()
 
     const handleCategoryClick=async(productsRangeCategory)=>{
+      setshowProducts(false)
+      setspinner(true)
+
       let data=await fetch(`${config.host}/api/getReqs/getCategoryProducts?category=${productsRangeCategory}`)
       let parsedData=await data.json()
       let allProducts=parsedData.products
+
       setproducts(allProducts)
       router.push(`/our-products/${productsRangeCategory}`)
+      setTimeout(() => {
+        setspinner(false)
+        setshowProducts(true)
+      }, 250);
       updateProductCategory()
     }
 
@@ -67,7 +78,9 @@ const Category = (props) => {
 
         <Sidebar products={products} />
 
-        <div className='my-5'>
+        <Spinner showSpinner={spinner}/>
+
+        {showProducts && <div className='my-5'>
           <h2 className='text-center font-semibold text-[22px] md:text-[25px] lg:text-[28px]'>{prodCategory}</h2>
           {/*  */}
           <div className='flex flex-wrap flex-col px-3 md:flex-row md:justify-around lg:justify-between lg:flex-row md:px-16 lg:px-20 xl:px-[108px]'>
@@ -89,7 +102,7 @@ const Category = (props) => {
               </div>
             })}
           </div>
-        </div>
+        </div>}
     </div>
   )
 }

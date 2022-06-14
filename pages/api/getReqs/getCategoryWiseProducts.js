@@ -4,11 +4,20 @@ import Products from "../../../modals/Products";
 const handler=async(req,res)=>{
     let categoryWiseProds=await Products.find({productCategory:req.query.category})
 
-    let categoryWiseProducts=[]
-    for (let index = 0; index < categoryWiseProds.length; index++) {
-        if(categoryWiseProds[index].productCategory==req.query.category && categoryWiseProds[index]._id!=req.query.id){
-            categoryWiseProducts.push(categoryWiseProds[index])
+    let itemIndexToRemove=categoryWiseProds.findIndex(e=>e._id==req.query.id)
+    categoryWiseProds.splice(itemIndexToRemove,1)
+
+    let myArray=[]
+    while(myArray.length!=6){
+        let myRandomVal=Math.floor(Math.random()*(categoryWiseProds.length-1))
+        if(!myArray.includes(myRandomVal)){
+            myArray.push(myRandomVal)
         }
+    }
+
+    let categoryWiseProducts=[]
+    for (let index = 0; index < myArray.length; index++) {
+        categoryWiseProducts.push(categoryWiseProds[myArray[index]])
     }
 
     res.json({categoryWiseProducts})

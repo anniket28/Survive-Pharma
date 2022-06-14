@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 import ProductRange from '../../components/ProductRange'
+import Spinner from '../../components/Spinner'
 import {FaRupeeSign} from 'react-icons/fa'
 import {AiFillFilePdf} from 'react-icons/ai'
 import {BsCheckCircle} from 'react-icons/bs'
@@ -11,6 +12,7 @@ import {MdOutlineDescription} from 'react-icons/md'
 import mongoose from 'mongoose'
 import config from '../../config.json'
 import Products from '../../modals/Products'
+import Interested from '../../components/Interested'
 
 const Id = (props) => {
   const router=useRouter()
@@ -18,6 +20,12 @@ const Id = (props) => {
   const [product, setproduct] = useState(props.product)
   const [products, setproducts] = useState([])
   const [categoryWiseProducts, setcategoryWiseProducts] = useState(props.categoryWiseProducts)
+  const [spinner, setspinner] = useState(false)
+  const [showProduct, setshowProduct] = useState(true)
+  const [modalProdId, setmodalProdId] = useState('')
+  const [modalProdName, setmodalProdName] = useState('')
+  const [modalProdImage, setmodalProdImage] = useState('')
+  const [modalProdDesc, setmodalProdDesc] = useState('')
 
   let prodCategory=""
   let prodCat=product.productCategory.split(/(?=[A-Z])/)
@@ -26,11 +34,20 @@ const Id = (props) => {
   }
 
   const handleCategoryClick=async(productsRangeCategory)=>{
+    setshowProduct(false)
+    setspinner(true)
+
     let data=await fetch(`${config.host}/api/getReqs/getCategoryProducts?category=${productsRangeCategory}`)
     let parsedData=await data.json()
     let allProducts=parsedData.products
     setproducts(allProducts)
     router.push(`/our-products/${productsRangeCategory}`)
+
+    const loading=setTimeout(() => {
+      setspinner(false)
+      setshowProduct(true)
+    }, 250);
+    clearTimeout(loading)
   }
 
   const handleCatProdKnowMore=async(productId)=>{
@@ -49,6 +66,14 @@ const Id = (props) => {
     router.push(`/know-more/${productId}?product=${parsedData.product.productName}`)
   }
 
+  const handleContactModal=(prodId,prodName,prodImage,prodDesc)=>{
+    prodDesc=prodDesc.substr(0,115)
+    setmodalProdId(prodId)
+    setmodalProdName(prodName)
+    setmodalProdImage(prodImage)
+    setmodalProdDesc(prodDesc)
+  }
+
   return (
     <div>
         {/* Head */}
@@ -64,7 +89,9 @@ const Id = (props) => {
 
         <ProductRange handleCategoryClick={handleCategoryClick}/>
 
-        <div className='my-10 shadow-md rounded-lg border-t-[1px] mx-5 md:mx-10'>
+        <Spinner showSpinner={spinner}/>
+
+        {showProduct && <div className='my-10 shadow-md rounded-lg border-t-[1px] mx-5 md:mx-10'>
             <h2 className='text-center px-1 font-bold text-[18px] sm:text-xl my-1 md:text-[22px] lg:text-2xl'>A <span className='text-sky-500'>Survive</span> <span className='text-green-500'>Pharma</span> Product</h2>
             <hr className='my-2' />
             {/* Small Devices */}
@@ -109,7 +136,6 @@ const Id = (props) => {
                         </div>
                     </form>
                 </div>
-
             </div>
 
             {/*  */}
@@ -117,7 +143,7 @@ const Id = (props) => {
             {/* Big Devices */}
             <div className='hidden lg:flex flex-row px-10 pt-4 pb-5 space-x-4 items-start'>
                 <div className='shadow-md border-t-[1px] rounded-md p-5'>
-                    <Image width={400} height={400} src={`/Images/Electrotherapy.webp`} alt={''}></Image>
+                    <Image width={400} height={400} src={`/ProductImages/${product.productImage}`} alt={product.productName}></Image>
                 </div>
                 <div className=" w-3/4 py-0">
                     <div className='flex justify-between'>
@@ -154,24 +180,25 @@ const Id = (props) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div>}
         {/* More Products */}
-        {categoryWiseProducts.length!=0 && <div className='my-5'>
+        {showProduct && categoryWiseProducts.length!=0 && <div className='my-5'>
           <h2 className='text-center font-semibold text-[20px] md:text-[22px] lg:text-[24px]'>More Products related to this category - {prodCategory}</h2>
           {/*  */}
           <div className='flex flex-wrap flex-col px-3 md:flex-row md:justify-around lg:justify-between lg:flex-row md:px-16 lg:px-20 xl:px-[108px]'>
             {/*  */}
             {categoryWiseProducts.map((catProd)=>{
               return <div key={catProd._id} className='flex flex-col shadow-md border-t-[1px] rounded-md mx-auto w-[75%] sm:w-[60%] md:w-[40%] lg:w-[30%] my-6'>
+                <Interested modalProductId={modalProdId} modalProductName={modalProdName} modalProductImage={modalProdImage} modalProductDesc={modalProdDesc} />
                 <div className='shadow px-3 rounded-t-md text-center'>
-                  <Image width={200} height={200} src={'/Images/Electrotherapy.webp'} alt={catProd.productName}></Image>
+                  <Image width={200} height={200} src={`/ProductImages/${catProd.productImage}`} alt={catProd.productName}></Image>
                 </div>
                 <div className='px-3 md:px-3 lg:px-3 xl:px-5 pt-3 md:h-[100px] lg:h-[90px] xl:h-[80px]'>
                   <button onClick={()=>{handleCatProdKnowMore(catProd._id)}} className='font-semibold text-lg md:text-xl text-slate-800 hover:text-black hover:underline'>{catProd.productName}</button>
                   {/* <h4 className='flex items-center text-lg text-slate-700 mt-[2px]'><FaRupeeSign /> {prod.productPrice} /Piece</h4> */}
                 </div>
                 <div className='flex mt-4 px-3 md:mt-0 md:px-3 lg:px-3 xl:px-5 space-x-0 pb-5 flex-col items-center space-y-3 xl:space-y-0 xl:space-x-3 xl:flex-row'>
-                  <button className='px-2 text-[15px] md:text-base py-1 md:px-2 md:py-1 lg:px-2 xl:px-[2.5px] lg:py-1 xl:py-[6px] bg-green-500 text-white rounded-md flex items-center hover:shadow-inner hover:shadow-sky-500'><span className='text-lg mr-[2px]'><BsCheckCircle /></span>Yes I am interested</button>
+                  <button onClick={()=>handleContactModal(catProd._id,catProd.productName,catProd.productImage,catProd.productDescription)} data-bs-toggle="modal" data-bs-target="#contactModal" className='px-2 text-[15px] md:text-base py-1 md:px-2 md:py-1 lg:px-2 xl:px-[2.5px] lg:py-1 xl:py-[6px] bg-green-500 text-white rounded-md flex items-center hover:shadow-inner hover:shadow-sky-500'><span className='text-lg mr-[2px]'><BsCheckCircle /></span>Yes I am interested</button>
                   <button onClick={()=>{handleCatProdKnowMore(catProd._id)}} className='px-2 text-[15px] md:text-base py-1 md:px-2 md:py-1 lg:px-2 xl:px-[2.5px] lg:py-1 xl:py-[6px] bg-sky-500 text-white rounded-md flex items-center cursor-pointer hover:shadow-inner hover:shadow-green-500'><span className='text-lg'><MdOutlineDescription /></span>Know More</button>
                 </div>
               </div>

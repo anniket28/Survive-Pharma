@@ -2,6 +2,8 @@ import React,{useState} from 'react'
 import Head from 'next/head'
 import Swal from 'sweetalert2'
 import config from '../config.json'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const GetInTouch = () => {
     // Use States
@@ -9,6 +11,15 @@ const GetInTouch = () => {
     const [email, setemail] = useState('')
     const [contact, setcontact] = useState('')
     const [enquiry, setenquiry] = useState('')
+
+    const notify = () => toast("Wow so easy!");
+
+    const validateEmail=(mail) =>{
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)){
+          return (true)
+        }
+        return (false)
+    }
 
     // On Change
     const handleChange=(event)=>{
@@ -29,27 +40,69 @@ const GetInTouch = () => {
     // Handle Submit
     const handleSubmit=(event)=>{
         event.preventDefault()
-        const userData={name,email,contact,enquiry}
 
-        fetch(`${config.host}/api/postReqs/postUserEnquiry`,{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify(userData)
-        }).then(response=>response.text())
-        .then(result=>{
-            Swal.fire({
-                title: 'Success',
-                text: 'Thank you for getting in touch with us! We will get back to you soon.',
-                icon: 'success',
-                confirmButtonText: 'Ok'
-            })
-            setname('')
-            setemail('')
-            setcontact('')
-            setenquiry('')
-        })
+        if(name.length===0 || email.length===0 || contact.length===0 || enquiry.length===0){
+            toast.error('Please fill all the required fields!', {
+                position: "bottom-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+
+        else{
+            const userData={name,email,contact,enquiry}
+
+            if(!validateEmail(email)){
+                toast.error('Invalid Email!', {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+
+            else if(contact.length<9 || contact.length>=15){
+                toast.error('Invalid Contact Number!', {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+
+            else{
+                fetch(`${config.host}/api/postReqs/postUserEnquiry`,{
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify(userData)
+                }).then(response=>response.text())
+                .then(result=>{
+                    Swal.fire({
+                        title: 'Success',
+                        text: 'Thank you for getting in touch with us! We will get back to you soon.',
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    })
+                    setname('')
+                    setemail('')
+                    setcontact('')
+                    setenquiry('')
+                })
+            }
+        }
+
     }
 
     // Handle Reset
@@ -71,6 +124,19 @@ const GetInTouch = () => {
             <meta name="description" content="Survive Pharma Get in touch Page" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
+
+        {/*  */}
+        <ToastContainer
+            position="bottom-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+        />
 
         {/*  */}
         <div className='my-10 px-5 sm:px-20 md:px-40 lg:px-12 xl:px-[123px]'>

@@ -6,11 +6,6 @@ import {MdEmail} from 'react-icons/md'
 import {IoCallSharp} from 'react-icons/io5'
 
 const Footer = () => {
-  // Send Email
-  const sendMail=()=>{
-    window.open("https://mail.google.com/mail/?view=cm&fs=1&to=survivepharma08@gmail.com","_blank")
-  }
-
   // Open Brochure
   const openBrochure=()=>{
     window.open("/Brochures/Survive-Pharma-Brochure.pdf","_blank")
@@ -38,8 +33,8 @@ const Footer = () => {
                     <h3 className='text-xl font-semibold'>Quick Links</h3>
                     <div className='flex flex-col items-center'>
                         <a href="tel:+91 8860217140" className='text-slate-600 hover:text-black mt-1'>Call Us</a>
-                        <a onClick={sendMail} className='text-slate-600 hover:text-black cursor-pointer'>Email Us</a>
-                        <a onClick={openBrochure} className='text-slate-600 hover:text-black cursor-pointer'>Our Brochure</a>
+                        <a href="mailto:survivepharma08@gmail.com" className='text-slate-600 hover:text-black cursor-pointer'>Email Us</a>
+                        <button onClick={openBrochure} className='text-slate-600 hover:text-black cursor-pointer'>Our Brochure</button>
                         <a href='' className='text-slate-600 hover:text-black'>Reach Us</a>
                     </div>
                 </div>
