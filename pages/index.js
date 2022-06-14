@@ -109,7 +109,7 @@ export default function Home() {
               <p className='text-slate-500 mt-1'>Our rehabilitation items wide product range includes Shoulder Arc (Zig-Zag Type), Quadriceps Table, Medicine Ball With Stand, Motorised Tilit Table, Hand Held Dyamanometer, Thera Tube, Thera Band, Hand Gym Board and Staircase.</p>
             </div>
             <div className='px-5 xl:px-6 lg:px-3 pt-1 pb-7'>
-              <Link href={'/our-products/TherapyUnit'} passHref><a className='cursor-pointer px-4 py-[7px] rounded-md text-slate-50 bg-sky-500 hover:bg-green-500'>Explore</a></Link>
+              <Link href={'/our-products/RehabilitationItems'} passHref><a className='cursor-pointer px-4 py-[7px] rounded-md text-slate-50 bg-sky-500 hover:bg-green-500'>Explore</a></Link>
             </div>
           </div>
         </div>
